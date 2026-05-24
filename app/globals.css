@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  background-color: #1A1612;
+  color: #FAF7F0;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a, button, [role="button"], summary { cursor: pointer; }
+
+/* Anti-vol images */
+img:not([data-allow]) { -webkit-user-drag: none; user-select: none; pointer-events: none; }
+
+/* Grain ardoise très subtil */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Nappe à carreaux rouge/blanc — accent décoratif (strips) */
+.nappe { background: repeating-conic-gradient(#8B2D3C 0% 25%, #FAF7F0 0% 50%) 0 / 22px 22px; }
+
+/* Wraps */
+.wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.wrap-wide { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+@media (min-width: 768px) { .wrap, .wrap-wide { padding: 0 44px; } }
+
+.eyebrow { font-family: var(--font-jakarta), sans-serif; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; }
+
+/* Reveal scroll — chaleureux, rapide, fiable */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1); will-change: opacity, transform; }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Underline animée */
+.link-underline { position: relative; }
+.link-underline::after { content: ''; position: absolute; left: 0; bottom: -3px; width: 100%; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+.link-underline:hover::after { transform: scaleX(1); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
